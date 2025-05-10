@@ -3,7 +3,7 @@ import { AppDispatcher, Action } from "./Dispatcher";
 
 export type State = {
   count: number;
-  addedPlants: string[];
+  addedPlants: number[];
 };
 
 type Listener = (state: State) => void;
@@ -44,8 +44,11 @@ class Store {
   private _handleActions(action: Action): void {
     switch (action.type) {
       case AddActionTypes.TOGGLE_ADD:
-        if (typeof action.payload === "string") {
-          const plantId = action.payload;
+        if (
+          typeof action.payload === "string" ||
+          typeof action.payload === "number"
+        ) {
+          const plantId = Number(action.payload);
           const currentPlants = this._myState.addedPlants || [];
           const plantIndex = currentPlants.indexOf(plantId);
 
