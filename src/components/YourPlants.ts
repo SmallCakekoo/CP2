@@ -1,24 +1,24 @@
-import { store } from "../flux/Store";
-
-class Root extends HTMLElement {
+class YourPlants extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
   }
 
   connectedCallback() {
-    store.load();
     this.render();
   }
 
   render() {
     if (!this.shadowRoot) return;
+
     this.shadowRoot.innerHTML = `
-    <h1>    </h1>
-        <card-container></card-container>
-        <your-plants></your-plants>
+     <div class="yourplants">
+      <img src="" alt="" />
+      <h4>a</h4>
+    </div>
         `;
   }
 }
 
-export default Root;
+export default YourPlants;
+// aca van a estar en tu jardin virtual las que se añaden
