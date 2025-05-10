@@ -14,7 +14,7 @@ class Root extends HTMLElement {
   render() {
     if (!this.shadowRoot) return;
     this.shadowRoot.innerHTML = `
-    <h1>    </h1>
+    <h1>Mi Jardincito</h1>
         <card-container></card-container>
         <your-plants></your-plants>
         `;

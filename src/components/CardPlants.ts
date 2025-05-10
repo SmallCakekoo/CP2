@@ -47,6 +47,7 @@ class CardPlants extends HTMLElement {
          <div class="container">
            <img src="${image}" alt="${name}">
            <p>${name}</p>
+           <button id="addbtn" onclick=""></button>
          </div>
         `;
   }
