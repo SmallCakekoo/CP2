@@ -1,10 +1,8 @@
 import { Plants } from "../types/ApiTypes";
 
-async function  getPlants(): Promise<Plants[]> {
+async function getPlants(): Promise<Plants[]> {
   try {
-    const response = await fetch("http://192.168.131.101:8080/dca/api/plants", {
-      method: "GET",
-    });
+    const response = await fetch("/data/api.json");
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -13,12 +11,34 @@ async function  getPlants(): Promise<Plants[]> {
   } catch (error) {
     console.error("Error fetching data:", error);
     throw error;
-    // acá podría hacer el return
   }
 }
 
 export default getPlants;
 
-// export async function getPlants(): Promise<any> {
-//     return [];
-// }
+export async function addPlantToGarden(plantId: string): Promise<boolean> {
+  
+  console.log(`Añadiendo planta con ID: ${plantId}`);
+  return true;
+}
+
+export async function removePlantFromGarden(plantId: string): Promise<boolean> {
+  
+  console.log(`Eliminando planta con ID: ${plantId}`);
+  return true;
+}
+
+export async function updatePlant(plant: Plants): Promise<boolean> {
+  
+  console.log(`Actualizando planta: ${plant.common_name}`);
+  return true;
+}
+
+export async function getUserGarden(): Promise<string[]> {
+  
+  return ["1", "2", "3"];
+}
+
+
+
+

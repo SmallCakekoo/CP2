@@ -34,8 +34,9 @@ class YourPlants extends HTMLElement {
     const state = store.getState();
     const addedPlants = state.addedPlants || [];
 
-    const yourPlants = this.plants.filter((plant) =>
-      addedPlants.includes(plant.id)
+    // Como api.json no tiene IDs, usamos índices
+    const yourPlants = this.plants.filter((plant, index) =>
+      addedPlants.includes(index + 1)
     );
 
     this.shadowRoot.innerHTML = `
@@ -86,8 +87,8 @@ class YourPlants extends HTMLElement {
               .map(
                 (plant) => `
               <div class="plant-card">
-                <img src="${plant.img}" alt="${plant.commonName}" />
-                <h4>${plant.commonName}</h4>
+                <img src="${plant.img}" alt="${plant.common_name}" />
+                <h4>${plant.common_name}</h4>
               </div>
             `
               )

@@ -34,12 +34,12 @@ class CardContainer extends HTMLElement {
       </style>
       <div class="container">
         ${this.plants
-          .map((plants) => {
-            const image = plants.img || "https://placehold.co/100x100.png";
-            const name = plants.commonName || "Planta desconocida";
+          .map((plant, index) => {
+            const image = plant.img || "https://placehold.co/100x100.png";
+            const name = plant.common_name || "Planta desconocida";
             return `
               <card-plants
-                uuid="${plants.id}"
+                uuid="${index + 1}"
                 image="${image}"
                 name="${name}">
               </card-plants>
