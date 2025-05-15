@@ -1,9 +1,13 @@
 import { AddActionTypes, StoreActionTypes } from "../flux/Actions";
 import { AppDispatcher, Action } from "./Dispatcher";
+import { Plants } from "../types/ApiTypes";
 
 export type State = {
   count: number;
   addedPlants: number[];
+  gardenName: string;
+  plants: Plants[];
+  currentPage: string;
 };
 
 type Listener = (state: State) => void;
@@ -12,6 +16,9 @@ class Store {
   private _myState: State = {
     count: 0,
     addedPlants: [],
+    gardenName: "Mi Jardín Virtual",
+    plants: [],
+    currentPage: "home",
   };
 
   private _listeners: Listener[] = [];
@@ -74,6 +81,36 @@ class Store {
           this._myState = {
             ...this._myState,
             ...action.payload,
+          };
+          this._emitChange();
+        }
+        break;
+
+      case StoreActionTypes.UPDATE_GARDEN_NAME:
+        if (typeof action.payload === "string") {
+          this._myState = {
+            ...this._myState,
+            gardenName: action.payload,
+          };
+          this._emitChange();
+        }
+        break;
+
+      case StoreActionTypes.LOAD_PLANTS:
+        if (Array.isArray(action.payload)) {
+          this._myState = {
+            ...this._myState,
+            plants: action.payload,
+          };
+          this._emitChange();
+        }
+        break;
+
+      case StoreActionTypes.NAVIGATE:
+        if (typeof action.payload === "string") {
+          this._myState = {
+            ...this._myState,
+            currentPage: action.payload,
           };
           this._emitChange();
         }

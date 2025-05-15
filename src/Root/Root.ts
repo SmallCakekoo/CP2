@@ -1,79 +1,185 @@
 import { store } from "../flux/Store";
+import { StoreActions } from "../flux/Actions";
 
 class Root extends HTMLElement {
-  private currentPage: string = "home";
-
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
   }
 
-  connectedCallback() {
+  async connectedCallback() {
     store.load();
+    store.subscribe(this.handleStateChange.bind(this));
     this.addEventListener(
       "navigate",
       this.handleNavigation.bind(this) as EventListener
     );
+
+    await StoreActions.loadPlants();
+
     this.render();
   }
 
+  private handleStateChange = () => {
+    this.render();
+  };
+
   private handleNavigation(event: CustomEvent) {
     if (event.detail && event.detail.page) {
-      this.currentPage = event.detail.page;
-      this.render();
+      StoreActions.navigate(event.detail.page);
     }
   }
 
   render() {
     if (!this.shadowRoot) return;
 
+    const state = store.getState();
+    const gardenName = state.gardenName || "Mi Jardín Virtual";
+    const currentPage = state.currentPage || "home";
+
     this.shadowRoot.innerHTML = `
       <style>
+       @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+       
         :host {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
           display: block;
-          font-family: Arial, sans-serif;
+          font-family: 'Montserrat', sans-serif;
+          --color-primary: #4CAF50;
+          --color-primary-dark: #388E3C;
+          --color-primary-light: #A5D6A7;
+          --color-accent: #FF9800;
+          --color-text-dark: #212121;
+          --color-text-light: #FFFFFF;
+          --color-gray-light: #F5F5F5;
+          --color-gray-medium: #E0E0E0;
+          --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+          --shadow-md: 0 4px 8px rgba(0,0,0,0.12);
+          --shadow-lg: 0 8px 16px rgba(0,0,0,0.14);
         }
+        
         header {
-          background-color: #4CAF50;
-          color: white;
-          padding: 1rem;
+          border-radius: 10px;
+          background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+          color: var(--color-text-light);
+          padding: 1.5rem;
           text-align: center;
+          box-shadow: var(--shadow-md);
+          position: relative;
+          z-index: 100;
+          max-width: 1200px;
+          margin: 0 auto;
         }
+        
         h1 {
           margin: 0;
+          font-size: 2rem;
+          font-weight: 600;
+          letter-spacing: 0.5px;
         }
+        
         nav {
-          background-color: #f1f1f1;
-          padding: 0.5rem;
+          background-color: var(--color-text-light);
+          padding: 0;
           display: flex;
           justify-content: center;
-          gap: 1rem;
+          position: sticky;
+          top: 0;
+          z-index: 90;
+          box-shadow: var(--shadow-sm);
+          overflow: hidden;
+          border-radius: 0 0 10px 10px;
+          max-width: 1200px;
+          margin: 0 auto;
         }
+        
+        .nav-container {
+          font-family: 'Montserrat', sans-serif;
+          display: flex;
+          width: 100%;
+          max-width: 1200px;
+          justify-content: space-between;
+          align-items: center;
+          padding: 0 1rem;
+        }
+        
+        .nav-links {
+          display: flex;
+          gap: 0.5rem;
+        }
+        
         nav button {
-          padding: 0.5rem 1rem;
-          background-color: #2196F3;
-          color: white;
+          padding: 1rem 1.5rem;
+          background-color: transparent;
+          color: var(--color-text-dark);
           border: none;
-          border-radius: 4px;
+          border-bottom: 3px solid transparent;
           cursor: pointer;
+          font-weight: 500;
+          font-size: 1rem;
+          transition: all 0.3s ease;
+          position: relative;
         }
+        
+        nav button.active {
+          color: var(--color-primary);
+          border-bottom: 3px solid var(--color-primary);
+        }
+        
+        nav button:hover {
+          color: var(--color-primary);
+          background-color: var(--color-gray-light);
+        }
+        
         main {
-          padding: 1rem;
+          padding: 0;
+          min-height: calc(100vh - 110px);
+          margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+          .nav-container {
+            font-family: 'Montserrat', sans-serif;
+            flex-direction: column;
+            padding: 0.5rem;
+          }
+          
+          .nav-links {
+            width: 100%;
+            justify-content: center;
+          }
+          
+          nav button {
+            padding: 0.8rem 1rem;
+            font-size: 0.9rem;
+          }
         }
       </style>
       
       <header>
-        <h1>Mi Jardín Virtual</h1>
+        <h1>${gardenName}</h1>
       </header>
       
       <nav>
-        <button id="homeBtn">Inicio</button>
-        <button id="modifyGardenBtn">Modificar Jardín</button>
-        <button id="adminBtn">Modo Admin</button>
+        <div class="nav-container">
+          <div class="nav-links">
+            <button id="homeBtn" class="${
+              currentPage === "home" ? "active" : ""
+            }">Inicio</button>
+            <button id="modifyGardenBtn" class="${
+              currentPage === "modifyGarden" ? "active" : ""
+            }">Modificar Jardín</button>
+            <button id="adminBtn" class="${
+              currentPage === "admin" ? "active" : ""
+            }">Modo Admin</button>
+          </div>
+        </div>
       </nav>
       
       <main>
-        ${this.renderPage()}
+        ${this.renderPage(currentPage)}
       </main>
     `;
 
@@ -84,31 +190,27 @@ class Root extends HTMLElement {
 
     if (homeBtn) {
       homeBtn.addEventListener("click", () => {
-        this.currentPage = "home";
-        this.render();
+        StoreActions.navigate("home");
       });
     }
 
     if (modifyGardenBtn) {
       modifyGardenBtn.addEventListener("click", () => {
-        this.currentPage = "modifyGarden";
-        this.render();
+        StoreActions.navigate("modifyGarden");
       });
     }
 
     if (adminBtn) {
       adminBtn.addEventListener("click", () => {
-        this.currentPage = "admin";
-        this.render();
+        StoreActions.navigate("admin");
       });
     }
   }
 
-  private renderPage() {
-    switch (this.currentPage) {
+  private renderPage(currentPage: string) {
+    switch (currentPage) {
       case "home":
-        return `
-          <card-container></card-container>
+        return ` 
           <your-plants></your-plants>
         `;
       case "modifyGarden":
