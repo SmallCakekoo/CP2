@@ -37,14 +37,17 @@ class CardContainer extends HTMLElement {
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
         
         :host {
-          --color-green-dark: #1b5e20;
-          --color-green-medium: #2e7d32;
-          --color-green-light: #4caf50;
-          --color-green-pale: #a5d6a7;
-          --color-green-bg: #f1f8e9;
-          --color-text-dark: #263238;
-          --color-text-medium: #546e7a;
-          --color-text-light: #78909c;
+          --color-background: #121212;
+          --color-surface: #1E1E1E;
+          --color-surface-lighter: #2D2D2D;
+          --color-green-dark: #388E3C;
+          --color-green-medium: #8BC34A;
+          --color-green-light: #8BC34A;
+          --color-text-light: #FFFFFF;
+          --color-text-secondary: #B3B3B3;
+          --color-text-tertiary: #737373;
+          --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+          --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
         }
         
         * {
@@ -58,15 +61,15 @@ class CardContainer extends HTMLElement {
           padding: 2rem;
           max-width: 1400px;
           margin: 0 auto;
-          background-color: var(--color-green-bg);
+          background-color: var(--color-background);
         }
         
         .header {
           text-align: center;
           margin-bottom: 2.5rem;
-          color: var(--color-green-dark);
+          color: var(--color-green-light);
           padding: 2rem 1rem;
-          background-color: var(--color-green-bg);
+          background-color: var(--color-background);
         }
         
         .header h1 {
@@ -77,7 +80,7 @@ class CardContainer extends HTMLElement {
         
         .header p {
           font-size: 1.2rem;
-          color: var(--color-text-medium);
+          color: var(--color-text-secondary);
           max-width: 800px;
           margin: 0 auto;
           font-weight: 400;

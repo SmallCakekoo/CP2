@@ -41,16 +41,18 @@ class CardPlants extends HTMLElement {
            
            :host {
              display: block;
-             --color-green-dark: #1b5e20;
-             --color-green-medium: #2e7d32;
-             --color-green-light: #4caf50;
-             --color-green-pale: #a5d6a7;
-             --color-green-bg: #f1f8e9;
-             --color-accent: ${isAdded ? "#c62828" : "#2e7d32"};
-             --color-accent-hover: ${isAdded ? "#b71c1c" : "#1b5e20"};
-             --color-text-dark: #263238;
-             --color-text-medium: #546e7a;
-             --color-text-light: #78909c;
+             --color-background: #121212;
+             --color-surface: #1E1E1E;
+             --color-surface-lighter: #2D2D2D;
+             --color-green-dark: #388E3C;
+             --color-green-medium: #8BC34A;
+             --color-green-light: #8BC34A;
+             --color-accent: ${isAdded ? "#e53935" : "#8BC34A"};
+             --color-accent-hover: ${isAdded ? "#c62828" : "#689F38"};
+             --color-text-light: #FFFFFF;
+             --color-text-secondary: #B3B3B3;
+             --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+             --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
            }
            
            * {
@@ -61,16 +63,19 @@ class CardPlants extends HTMLElement {
              display: flex;
              flex-direction: column;
              height: 100%;
-             border-radius: 12px;
+             border-radius: 20px;
              overflow: hidden;
-             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+             background: rgba(30, 30, 30, 0.5);
+             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+             backdrop-filter: blur(5px);
+             -webkit-backdrop-filter: blur(5px);
+             border: 1px solid rgba(80, 80, 80, 0.3);
              transition: transform 0.3s ease, box-shadow 0.3s ease;
-             background-color: #fff;
            }
            
            .container:hover {
              transform: translateY(-8px);
-             box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
            }
            
            .img-container {
@@ -101,16 +106,16 @@ class CardPlants extends HTMLElement {
              margin: 0 0 0.8rem 0;
              font-size: 1.3rem;
              font-weight: 600;
-             color: var(--color-green-dark);
+             color: var(--color-text-light);
            }
            
            button {
              margin-top: auto;
              padding: 0.7rem 1rem;
              background-color: var(--color-accent);
-             color: white;
+             color: var(--color-text-light);
              border: none;
-             border-radius: 8px;
+             border-radius: 15px;
              cursor: pointer;
              transition: all 0.3s ease;
              font-weight: 600;
@@ -132,7 +137,7 @@ class CardPlants extends HTMLElement {
              top: 10px;
              right: 10px;
              background-color: var(--color-accent);
-             color: white;
+             color: var(--color-text-light);
              padding: 0.3rem 0.8rem;
              border-radius: 20px;
              font-size: 0.8rem;

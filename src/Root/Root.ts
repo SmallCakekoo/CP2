@@ -47,22 +47,27 @@ class Root extends HTMLElement {
           box-sizing: border-box;
           display: block;
           font-family: 'Montserrat', sans-serif;
-          --color-primary: #4CAF50;
+          --color-background: #121212;
+          --color-surface: #1E1E1E;
+          --color-surface-lighter: #2D2D2D;
+          --color-primary: #8BC34A;
           --color-primary-dark: #388E3C;
           --color-primary-light: #A5D6A7;
-          --color-accent: #FF9800;
-          --color-text-dark: #212121;
+          --color-accent: #8BC34A;
           --color-text-light: #FFFFFF;
-          --color-gray-light: #F5F5F5;
-          --color-gray-medium: #E0E0E0;
-          --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
-          --shadow-md: 0 4px 8px rgba(0,0,0,0.12);
-          --shadow-lg: 0 8px 16px rgba(0,0,0,0.14);
+          --color-text-secondary: #B3B3B3;
+          --color-text-tertiary: #737373;
+          --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+          --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+          --shadow-lg: 0 8px 24px rgba(0,0,0,0.5);
+          background-color: var(--color-background);
+          color: var(--color-text-light);
+          min-height: 100vh;
         }
         
         header {
-          border-radius: 10px;
-          background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+          border-radius: 20px;
+          background: var(--color-surface);
           color: var(--color-text-light);
           padding: 1.5rem;
           text-align: center;
@@ -71,6 +76,9 @@ class Root extends HTMLElement {
           z-index: 100;
           max-width: 1200px;
           margin: 0 auto;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
         
         h1 {
@@ -81,7 +89,7 @@ class Root extends HTMLElement {
         }
         
         nav {
-          background-color: var(--color-text-light);
+          background-color: var(--color-surface);
           padding: 0;
           display: flex;
           justify-content: center;
@@ -90,7 +98,7 @@ class Root extends HTMLElement {
           z-index: 90;
           box-shadow: var(--shadow-sm);
           overflow: hidden;
-          border-radius: 0 0 10px 10px;
+          border-radius: 0 0 20px 20px;
           max-width: 1200px;
           margin: 0 auto;
         }
@@ -113,7 +121,7 @@ class Root extends HTMLElement {
         nav button {
           padding: 1rem 1.5rem;
           background-color: transparent;
-          color: var(--color-text-dark);
+          color: var(--color-text-secondary);
           border: none;
           border-bottom: 3px solid transparent;
           cursor: pointer;
@@ -124,13 +132,13 @@ class Root extends HTMLElement {
         }
         
         nav button.active {
-          color: var(--color-primary);
-          border-bottom: 3px solid var(--color-primary);
+          color: var(--color-accent);
+          border-bottom: 3px solid var(--color-accent);
         }
         
         nav button:hover {
-          color: var(--color-primary);
-          background-color: var(--color-gray-light);
+          color: var(--color-primary-light);
+          background-color: var(--color-surface-lighter);
         }
         
         main {

@@ -96,14 +96,20 @@ class AdminModifyPlants extends HTMLElement {
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
         
         :host {
-          --color-green-dark: #1b5e20;
-          --color-green-medium: #2e7d32;
-          --color-green-light: #4caf50;
-          --color-green-pale: #a5d6a7;
-          --color-green-bg: #f1f8e9;
-          --color-text-dark: #263238;
-          --color-text-medium: #546e7a;
-          --color-text-light: #78909c;
+          --color-background: #121212;
+          --color-surface: #1E1E1E;
+          --color-surface-lighter: #2D2D2D;
+          --color-green-dark: #388E3C;
+          --color-green-medium: #8BC34A;
+          --color-green-light: #8BC34A;
+          --color-green-pale: #A5D6A7;
+          --color-red-light: #e57373;
+          --color-red-dark: #c62828;
+          --color-text-light: #FFFFFF;
+          --color-text-secondary: #B3B3B3;
+          --color-text-tertiary: #737373;
+          --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+          --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
         }
         
         * {
@@ -114,21 +120,21 @@ class AdminModifyPlants extends HTMLElement {
           padding: 2rem;
           max-width: 1400px;
           margin: 0 auto;
-          background-color: var(--color-green-bg);
-          border-radius: 15px;
-          box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+          background-color: var(--color-background);
+          border-radius: 20px;
+          box-shadow: var(--shadow-sm);
         }
         
         .admin-title {
           text-align: center;
-          color: var(--color-green-dark);
+          color: var(--color-green-light);
           font-size: 2.5rem;
           margin-bottom: 0.8rem;
           font-weight: 700;
         }
         
         .admin-subtitle {
-          color: var(--color-text-medium);
+          color: var(--color-text-secondary);
           font-size: 1.2rem;
           max-width: 800px;
           margin: 0 auto 1.5rem;
@@ -141,9 +147,9 @@ class AdminModifyPlants extends HTMLElement {
           margin-bottom: 2rem;
           padding: 0.8rem 1.5rem;
           background-color: var(--color-green-medium);
-          color: white;
+          color: var(--color-text-light);
           border: none;
-          border-radius: 8px;
+          border-radius: 15px;
           cursor: pointer;
           text-decoration: none;
           font-weight: 600;
@@ -163,11 +169,14 @@ class AdminModifyPlants extends HTMLElement {
         }
         
         .plant-card {
-          border-radius: 12px;
+          border-radius: 20px;
           overflow: hidden;
-          box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+          background: rgba(30, 30, 30, 0.5);
+          box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+          backdrop-filter: blur(5px);
+          -webkit-backdrop-filter: blur(5px);
+          border: 1px solid rgba(80, 80, 80, 0.3);
           transition: transform 0.3s ease, box-shadow 0.3s ease;
-          background-color: #fff;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -176,14 +185,14 @@ class AdminModifyPlants extends HTMLElement {
         
         .plant-card:hover {
           transform: translateY(-8px);
-          box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
         }
         
         .plant-card img {
           width: 180px;
           height: 180px;
           object-fit: cover;
-          border-radius: 8px;
+          border-radius: 15px;
           transition: transform 0.5s ease;
         }
         
@@ -193,7 +202,7 @@ class AdminModifyPlants extends HTMLElement {
         
         .plant-card h3 {
           margin: 1rem 0 0.3rem 0;
-          color: var(--color-green-dark);
+          color: var(--color-text-light);
           font-weight: 600;
           font-size: 1.3rem;
         }
@@ -201,26 +210,29 @@ class AdminModifyPlants extends HTMLElement {
         .plant-card p {
           margin: 0.3rem 0 0.8rem 0;
           font-size: 0.9rem;
-          color: var(--color-text-medium);
+          color: var(--color-text-secondary);
           font-style: italic;
         }
         
         .plant-card small {
-          color: var(--color-green-medium);
+          color: var(--color-green-light);
           margin-top: 0.5rem;
           font-weight: 500;
         }
         
         .plant-form {
-          background-color: #fff;
+          background: rgba(30, 30, 30, 0.5);
+          box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+          backdrop-filter: blur(5px);
+          -webkit-backdrop-filter: blur(5px);
+          border: 1px solid rgba(80, 80, 80, 0.3);
           padding: 2rem;
-          border-radius: 12px;
+          border-radius: 20px;
           margin-top: 2rem;
-          box-shadow: 0 5px 15px rgba(0,0,0,0.08);
         }
         
         .plant-form h3 {
-          color: var(--color-green-dark);
+          color: var(--color-green-light);
           margin-bottom: 1.5rem;
           text-align: center;
           font-size: 1.8rem;
@@ -235,15 +247,17 @@ class AdminModifyPlants extends HTMLElement {
           display: block;
           margin-bottom: 0.5rem;
           font-weight: 600;
-          color: var(--color-text-dark);
+          color: var(--color-text-light);
           font-size: 1rem;
         }
         
         input, select {
           width: 100%;
           padding: 0.8rem;
-          border: 1px solid #ddd;
-          border-radius: 8px;
+          border: 1px solid var(--color-surface-lighter);
+          background-color: var(--color-surface-lighter);
+          color: var(--color-text-light);
+          border-radius: 15px;
           font-size: 1rem;
           transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
@@ -264,9 +278,9 @@ class AdminModifyPlants extends HTMLElement {
         .save-btn {
           padding: 0.8rem 2rem;
           background-color: var(--color-green-medium);
-          color: white;
+          color: var(--color-text-light);
           border: none;
-          border-radius: 8px;
+          border-radius: 15px;
           cursor: pointer;
           font-weight: 600;
           font-size: 1rem;
@@ -280,10 +294,10 @@ class AdminModifyPlants extends HTMLElement {
         
         .cancel-btn {
           padding: 0.8rem 2rem;
-          background-color: #e57373;
-          color: white;
+          background-color: var(--color-red-light);
+          color: var(--color-text-light);
           border: none;
-          border-radius: 8px;
+          border-radius: 15px;
           cursor: pointer;
           font-weight: 600;
           font-size: 1rem;
@@ -291,7 +305,7 @@ class AdminModifyPlants extends HTMLElement {
         }
         
         .cancel-btn:hover {
-          background-color: #c62828;
+          background-color: var(--color-red-dark);
           transform: translateY(-3px);
         }
         

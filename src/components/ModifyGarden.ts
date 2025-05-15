@@ -51,14 +51,18 @@ class ModifyGarden extends HTMLElement {
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
         
         :host {
-          --color-green-dark: #1b5e20;
-          --color-green-medium: #2e7d32;
-          --color-green-light: #4caf50;
-          --color-green-pale: #a5d6a7;
-          --color-green-bg: #f1f8e9;
-          --color-text-dark: #263238;
-          --color-text-medium: #546e7a;
-          --color-text-light: #78909c;
+          --color-background: #121212;
+          --color-surface: #1E1E1E;
+          --color-surface-lighter: #2D2D2D;
+          --color-green-dark: #388E3C;
+          --color-green-medium: #8BC34A;
+          --color-green-light: #8BC34A;
+          --color-green-pale: #A5D6A7;
+          --color-text-light: #FFFFFF;
+          --color-text-secondary: #B3B3B3;
+          --color-text-tertiary: #737373;
+          --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+          --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
         }
         
         * {
@@ -69,9 +73,9 @@ class ModifyGarden extends HTMLElement {
           padding: 2rem;
           max-width: 1400px;
           margin: 0 auto;
-          background-color: var(--color-green-bg);
-          border-radius: 15px;
-          box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+          background-color: var(--color-background);
+          border-radius: 20px;
+          box-shadow: var(--shadow-sm);
         }
         
         .modify-garden-header {
@@ -80,14 +84,14 @@ class ModifyGarden extends HTMLElement {
         }
         
         .modify-garden-title {
-          color: var(--color-green-dark);
+          color: var(--color-green-light);
           font-size: 2.5rem;
           margin-bottom: 0.8rem;
           font-weight: 700;
         }
         
         .modify-garden-subtitle {
-          color: var(--color-text-medium);
+          color: var(--color-text-secondary);
           font-size: 1.2rem;
           max-width: 800px;
           margin: 0 auto 1.5rem;
@@ -101,18 +105,21 @@ class ModifyGarden extends HTMLElement {
         }
         
         .plant-card {
-          border-radius: 12px;
+          border-radius: 20px;
           overflow: hidden;
-          box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+          background: rgba(30, 30, 30, 0.5);
+          box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+          backdrop-filter: blur(5px);
+          -webkit-backdrop-filter: blur(5px);
+          border: 1px solid rgba(80, 80, 80, 0.3);
           transition: transform 0.3s ease, box-shadow 0.3s ease;
-          background-color: #fff;
           display: flex;
           flex-direction: column;
         }
         
         .plant-card:hover {
           transform: translateY(-8px);
-          box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
         }
         
         .plant-img-container {
@@ -137,7 +144,7 @@ class ModifyGarden extends HTMLElement {
           top: 10px;
           right: 10px;
           background-color: var(--color-green-medium);
-          color: white;
+          color: var(--color-text-light);
           padding: 0.3rem 0.8rem;
           border-radius: 20px;
           font-size: 0.8rem;
@@ -162,21 +169,21 @@ class ModifyGarden extends HTMLElement {
         .plant-name {
           margin: 0 0 0.5rem 0;
           font-size: 1.3rem;
-          color: var(--color-green-dark);
+          color: var(--color-text-light);
           font-weight: 600;
         }
         
         .plant-scientific {
           margin: 0 0 0.8rem 0;
           font-size: 0.9rem;
-          color: var(--color-text-medium);
+          color: var(--color-text-secondary);
           font-style: italic;
         }
         
         .plant-details {
           margin: 0 0 1rem 0;
           font-size: 0.9rem;
-          color: var(--color-text-medium);
+          color: var(--color-text-secondary);
           flex-grow: 1;
         }
         
@@ -186,13 +193,13 @@ class ModifyGarden extends HTMLElement {
         
         .plant-detail span {
           font-weight: 600;
-          color: var(--color-text-dark);
+          color: var(--color-text-light);
         }
         
         .plant-button {
           padding: 0.8rem 1rem;
           border: none;
-          border-radius: 8px;
+          border-radius: 15px;
           cursor: pointer;
           transition: all 0.3s ease;
           font-weight: 600;
@@ -202,12 +209,12 @@ class ModifyGarden extends HTMLElement {
         
         .plant-button.add {
           background-color: var(--color-green-medium);
-          color: white;
+          color: var(--color-text-light);
         }
         
         .plant-button.remove {
-          background-color: #c62828;
-          color: white;
+          background-color: #e53935;
+          color: var(--color-text-light);
         }
         
         .plant-button:hover {
@@ -219,9 +226,9 @@ class ModifyGarden extends HTMLElement {
           display: inline-block;
           padding: 0.8rem 1.5rem;
           background-color: var(--color-green-medium);
-          color: white;
+          color: var(--color-text-light);
           border: none;
-          border-radius: 8px;
+          border-radius: 15px;
           cursor: pointer;
           text-decoration: none;
           font-weight: 600;
