@@ -73,8 +73,6 @@ class AdminModifyPlants extends HTMLElement {
 
       this.selectedPlant = null;
       this.selectedIndex = -1;
-
-      await StoreActions.loadPlants();
     } catch (error) {
       console.error("Error al actualizar la planta:", error);
       alert("Error al actualizar la planta");
